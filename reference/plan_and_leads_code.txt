@@ -1,0 +1,289 @@
+=== LINES 3240 to 3450 (Plan: Incoming, Outgoing, Recent) ===
+L3241: /* Dialer screen — quick dial from leads, recent call log, active-call simulation, and a real keypad. */
+L3242: var DIALER_RECENT_CALLS = [
+L3243:   {dir:'in', name:'Mukunda R.', time:'10:42 AM', duration:'4m 12s'},
+L3244:   {dir:'out', name:'Kavitha R.', time:'Yesterday', duration:'2m 05s'},
+L3245:   {dir:'missed', name:'Unknown', time:'Yesterday', duration:'—'},
+L3246:   {dir:'missed', name:'Ritu S.', time:'Today 11:20 AM', duration:'—'},
+L3247:   {dir:'missed', name:'Faizan A.', time:'Today 10:05 AM', duration:'—'},
+L3248:   {dir:'missed', name:'Kavitha R.', time:'Yesterday 4:40 PM', duration:'—'},
+L3249:   {dir:'missed', name:'Divya P.', time:'Yesterday 2:15 PM', duration:'—'},
+L3250:   {dir:'out', name:'Faizan A.', time:'Mon', duration:'6m 40s'}
+L3251: ];
+L3252: // ───────────────── Planner: Incoming (missed calls, ranked by expected value) ─────────────────
+L3253: function renderPlanIncoming(){
+L3254:   var box = document.getElementById('planIncomingList'); if(!box) return;
+L3255:   var summaryBox = document.getElementById('planIncomingSummary');
+L3256:   var missed = DIALER_RECENT_CALLS.filter(function(c){ return c.dir==='missed'; }).map(function(c){
+L3257:     var lead = LEADS_MODAL_DATA.filter(function(l){ return c.name && c.name.indexOf(l.name)===0; })[0];
+L3258:     return {call:c, lead:lead, value: lead ? (lead.expectedValue||0) : 0};
+L3259:   }).sort(function(a,b){ return b.value - a.value; });
+L3260:   if(!missed.length){
+L3261:     if(summaryBox) summaryBox.style.display = 'none';
+L3262:     box.innerHTML = '<div style="text-align:center;padding:26px 14px;color:#a8a8ad"><div style="font-size:28px;margin-bottom:6px">✅</div><div style="font-size:14.5px;font-weight:700;color:#6b6b74">No missed calls</div></div>';
+L3263:     return;
+L3264:   }
+L3265:   if(summaryBox){
+L3266:     var totalValue = missed.reduce(function(s,m){ return s + m.value; }, 0);
+L3267:     summaryBox.style.display = 'flex';
+L3268:     summaryBox.innerHTML = '<div><div style="font-size:19px;font-weight:800;color:#1a1a1a">'+missed.length+'</div><div style="font-size:12px;color:#8e8e93;font-weight:700;text-transform:uppercase">Missed today</div></div>'
+L3269:       + '<div style="width:1px;height:28px;background:#ece7fa"></div>'
+L3270:       + '<div><div style="font-size:19px;font-weight:800;color:#0f6e56">₹'+totalValue.toLocaleString('en-IN')+'</div><div style="font-size:12px;color:#8e8e93;font-weight:700;text-transform:uppercase">Expected value at stake</div></div>';
+L3271:   }
+L3272:   box.innerHTML = missed.map(function(m){
+L3273:     var c = m.call, l = m.lead;
+L3274:     var valueTag = l ? '₹'+l.expectedValue.toLocaleString('en-IN')+' expected' : 'New contact';
+L3275:     var signalTag = l ? (l.icp>=80 ? 'Visited store / in CRM' : (l.icp>=55?'Warm lead':'Cold lead')) : 'No prior record';
+L3276:     return '<div class="plan-row"><div class="plan-row-head" style="cursor:default">'
+L3277:       + '<div style="width:36px;height:36px;border-radius:50%;background:#fdecec;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-phone-x" style="font-size:16px;color:#e24b4a"></i></div>'
+L3278:       + '<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:700;color:#1a1a1a">'+(c.name||'Unknown')+'</div><div style="font-size:12.5px;color:#8e8e93">Missed '+c.time+' · '+signalTag+'</div></div>'
+L3279:       + '<div style="text-align:right;flex-shrink:0">'
+L3280:       +   '<div style="font-size:13.5px;font-weight:800;color:'+(l?'#0f6e56':'#8e8e93')+'">'+valueTag+'</div>'
+L3281:       +   '<button onclick="planPlaceCall(\''+(c.name||'').replace(/'/g,"\'")+'\')" style="margin-top:4px;font-size:12.5px;font-weight:700;color:#fff;background:#0f6e56;border:none;border-radius:7px;padding:4px 9px;cursor:pointer"><i class="ti ti-phone" style="font-size:12px;margin-right:3px"></i>Call back</button>'
+L3282:       + '</div>'
+L3283:     + '</div></div>';
+L3284:   }).join('');
+L3285: }
+L3286: 
+L3287: // ───────────────── Planner: Outgoing (planned calls, ranked by lead attractiveness, paginated) ─────────────────
+L3288: var planOutgoingPage = 0, planOutgoingExpanded = null;
+L3289: var PLAN_OUTGOING_PER_PAGE = 2;
+L3290: function planOutgoingLeads(){
+L3291:   return LEADS_MODAL_DATA.filter(function(l){ return l.actions==='open' || l.actions==='ageing'; })
+L3292:     .slice().sort(function(a,b){ return (b.attractivenessScore||0) - (a.attractivenessScore||0); });
+L3293: }
+L3294: function renderPlanOutgoing(){
+L3295:   var box = document.getElementById('planOutgoingList'); if(!box) return;
+L3296:   var leads = planOutgoingLeads();
+L3297:   var totalPages = Math.max(1, Math.ceil(leads.length / PLAN_OUTGOING_PER_PAGE));
+L3298:   planOutgoingPage = Math.max(0, Math.min(planOutgoingPage, totalPages-1));
+L3299:   var pageLeads = leads.slice(planOutgoingPage*PLAN_OUTGOING_PER_PAGE, planOutgoingPage*PLAN_OUTGOING_PER_PAGE + PLAN_OUTGOING_PER_PAGE);
+L3300:   box.innerHTML = pageLeads.map(function(l){
+L3301:     var idx = leads.indexOf(l);
+L3302:     var expanded = planOutgoingExpanded === idx;
+L3303:     var scoreColor = l.attractivenessScore>=80 ? '#0f6e56' : l.attractivenessScore>=55 ? '#c8860a' : '#e24b4a';
+L3304:     var head = '<div class="plan-row-head" onclick="planOutgoingToggle('+idx+')">'
+L3305:       + '<div style="width:36px;height:36px;border-radius:50%;background:'+l.avatarBg+';color:'+l.avatarColor+';font-size:14.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+l.initials+'</div>'
+L3306:       + '<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:700;color:#1a1a1a">'+l.name+'</div><div style="font-size:12.5px;color:#8e8e93">'+l.interest+'</div></div>'
+L3307:       + '<div style="text-align:right;flex-shrink:0"><div style="font-size:14.5px;font-weight:800;color:'+scoreColor+'">'+l.attractivenessScore+'</div><div style="font-size:11px;color:#a8a8ad;text-transform:uppercase">score</div></div>'
+L3308:       + '<i class="ti '+(expanded?'ti-chevron-up':'ti-chevron-down')+'" style="font-size:15px;color:#c5c5c5;margin-left:4px;flex-shrink:0"></i>'
+L3309:     + '</div>';
+L3310:     var detail = '';
+L3311:     if(expanded){
+L3312:       var storySummary = (l.journey||[]).map(function(j){ return j.text; }).join(' → ');
+L3313:       detail = '<div class="plan-row-detail">'
+L3314:         + '<div style="font-size:12.5px;font-weight:800;color:#8e8e93;text-transform:uppercase;letter-spacing:.4px;margin:10px 0 4px">Story so far</div>'
+L3315:         + '<div style="font-size:13.5px;color:#3a3a42;line-height:1.5">'+(storySummary||'No prior journey logged yet.')+'</div>'
+L3316:         + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">'
+L3317:         +   '<div style="background:#f7f7f9;border-radius:9px;padding:8px 10px"><div style="font-size:11px;font-weight:800;color:#8e8e93;text-transform:uppercase">Preferred product</div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-top:2px">'+(l.product||'—')+'</div></div>'
+L3318:         +   '<div style="background:#f7f7f9;border-radius:9px;padding:8px 10px"><div style="font-size:11px;font-weight:800;color:#8e8e93;text-transform:uppercase">Cross-sell</div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-top:2px">'+(l.crossSell||'—')+'</div></div>'
+L3319:         + '</div>'
+L3320:         + '<div style="background:#fff8e1;border:1px solid #f5cf94;border-radius:9px;padding:8px 10px;margin-top:8px"><div style="font-size:11px;font-weight:800;color:#a16207;text-transform:uppercase">EMI / financing</div><div style="font-size:13px;color:#7c4a00;margin-top:2px">'+(l.emi||'Not discussed yet')+'</div></div>'
+L3321:         + '<button onclick="planPlaceCall(\''+l.name.replace(/'/g,"\'")+'\')" style="width:100%;margin-top:12px;padding:11px;border:none;border-radius:10px;font-size:14.5px;font-weight:700;color:#fff;background:#0f6e56;cursor:pointer"><i class="ti ti-phone" style="font-size:15px;vertical-align:-2px;margin-right:5px"></i>Place call</button>'
+L3322:       + '</div>';
+L3323:     }
+L3324:     return '<div class="plan-row">'+head+detail+'</div>';
+L3325:   }).join('');
+L3326:   var pager = document.getElementById('planOutgoingPager');
+L3327:   if(pager){
+L3328:     pager.innerHTML = '<button onclick="planOutgoingNav(-1)" '+(planOutgoingPage===0?'disabled':'')+' style="width:30px;height:30px;border-radius:50%;border:1px solid #e5e5ea;background:#fff;cursor:pointer;opacity:'+(planOutgoingPage===0?'.4':'1')+'"><i class="ti ti-chevron-left" style="font-size:15px"></i></button>'
+L3329:       + '<span style="font-size:12.5px;font-weight:700;color:#6b6b74">Page '+(planOutgoingPage+1)+' of '+totalPages+'</span>'
+L3330:       + '<button onclick="planOutgoingNav(1)" '+(planOutgoingPage>=totalPages-1?'disabled':'')+' style="width:30px;height:30px;border-radius:50%;border:1px solid #e5e5ea;background:#fff;cursor:pointer;opacity:'+(planOutgoingPage>=totalPages-1?'.4':'1')+'"><i class="ti ti-chevron-right" style="font-size:15px"></i></button>';
+L3331:   }
+L3332: }
+L3333: window.planOutgoingToggle = function(idx){ planOutgoingExpanded = (planOutgoingExpanded===idx) ? null : idx; renderPlanOutgoing(); };
+L3334: window.planOutgoingNav = function(dir){ planOutgoingPage += dir; planOutgoingExpanded = null; renderPlanOutgoing(); };
+L3335: window.planPlaceCall = function(name){ dialerStartCall(name); var av=document.getElementById('dialerActiveCall'); if(av) av.scrollIntoView({behavior:'smooth',block:'start'}); };
+L3336: 
+L3337: // ───────────────── Planner: Recent calls (tap to review vs SOP) ─────────────────
+L3338: function renderPlanRecent(){
+L3339:   var box = document.getElementById('planRecentList'); if(!box) return;
+L3340:   var iconMap = {in:{icon:'ti-phone-incoming',color:'#0f6e56',bg:'#e1f5ee'},out:{icon:'ti-phone-outgoing',color:'#185fa5',bg:'#e8f0fe'},missed:{icon:'ti-phone-x',color:'#e24b4a',bg:'#fdecec'}};
+L3341:   box.innerHTML = DIALER_RECENT_CALLS.map(function(c,i){
+L3342:     var m = iconMap[c.dir] || iconMap.out;
+L3343:     var outcomeTag = c.outcome ? '<span style="font-size:12.5px;font-weight:700;color:#0f6e56;background:#e1f5ee;padding:1px 6px;border-radius:6px;margin-left:6px;white-space:nowrap;display:inline-block">'+c.outcome+'</span>' : '';
+L3344:     return '<div class="plan-row"><div class="plan-row-head" onclick="openCallSopReview('+i+')">'
+L3345:       + '<div style="width:36px;height:36px;border-radius:50%;background:'+m.bg+';display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti '+m.icon+'" style="font-size:16px;color:'+m.color+'"></i></div>'
+L3346:       + '<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:700;color:#1a1a1a;display:flex;align-items:center;flex-wrap:wrap;gap:2px">'+c.name+outcomeTag+'</div><div style="font-size:12.5px;color:#8e8e93">'+c.time+' · '+c.duration+'</div></div>'
+L3347:       + '<i class="ti ti-chevron-right" style="font-size:15px;color:#c5c5c5;flex-shrink:0"></i>'
+L3348:     + '</div></div>';
+L3349:   }).join('');
+L3350: }
+L3351: 
+L3352: // ───────────────── Call SOP review — mirrors the manager's Calling Channel Analysis script-adherence
+L3353: // items (Settings → Customer Growth Preferences → SOP Template Questions, Call Centre channel),
+L3354: // scored against this specific recent call. ─────────────────
+L3355: var CALL_SOP_ITEMS = [
+L3356:   {label:'Opening & Intent Confirm'},
+L3357:   {label:'Needs Discovery'},
+L3358:   {label:'Product Pitch'},
+L3359:   {label:'EMI / Financing Mention'},
+L3360:   {label:'Warranty Mention'},
+L3361:   {label:'Closing / Callback Booking'}
+L3362: ];
+L3363: var SOP_REVIEW_TEMPLATES = [
+L3364:   [true,true,true,true,false,true],
+L3365:   [true,true,false,true,false,false],
+L3366:   [true,false,true,false,false,true],
+L3367:   [true,true,true,false,true,true]
+L3368: ];
+L3369: // Evidence lines — short transcript-style quotes justifying each pass/fail, so the review reads as
+L3370: // backed by what was actually said on the call rather than an unexplained checkmark.
+L3371: var SOP_REVIEW_EVIDENCE = [
+L3372:   [
+L3373:     '"This is Aditi calling from The Sleep Company, is now an okay time?"',
+L3374:     '"Can I ask what matters most to you — firmness or price?"',
+L3375:     '"The GRID layer gives pressure relief exactly where you need it."',
+L3376:     '"We do have a 6-month no-cost EMI plan if that helps."',
+L3377:     'No mention of the warranty period anywhere in the call.',
+L3378:     '"I\'ll send the quote over and follow up Thursday, does that work?"'
+L3379:   ],
+L3380:   [
+L3381:     '"Hi, calling about your enquiry — good time to talk?"',
+L3382:     '"So tell me, what are you looking for exactly?"',
+L3383:     'Jumped to price before confirming the customer\'s actual need.',
+L3384:     '"There\'s an EMI option starting at ₹1,200/month."',
+L3385:     'No warranty details were shared.',
+L3386:     'Call ended without confirming a next step or callback time.'
+L3387:   ],
+L3388:   [
+L3389:     '"This is Aditi, is this an alright time to talk?"',
+L3390:     'Moved straight to pitching without asking what the customer needs.',
+L3391:     '"This model is our best-seller for back support."',
+L3392:     'EMI never came up even though the customer asked about total cost.',
+L3393:     'No warranty mention.',
+L3394:     '"I\'ll note this down and call you back tomorrow at the same time."'
+L3395:   ],
+L3396:   [
+L3397:     '"Hello, this is Aditi from The Sleep Company."',
+L3398:     '"What\'s brought this on — any specific concern with sleep or back pain?"',
+L3399:     '"Given what you described, the Ortho GRID would be the right fit."',
+L3400:     'Customer asked about payment plans but it wasn\'t addressed on the call.',
+L3401:     '"It comes with a 10-year warranty, so you\'re covered either way."',
+L3402:     '"Let\'s lock in delivery for this Friday, I\'ll send the confirmation."'
+L3403:   ]
+L3404: ];
+L3405: function getCallSopResults(idx){
+L3406:   var t = SOP_REVIEW_TEMPLATES[idx % SOP_REVIEW_TEMPLATES.length];
+L3407:   var ev = SOP_REVIEW_EVIDENCE[idx % SOP_REVIEW_EVIDENCE.length];
+L3408:   return CALL_SOP_ITEMS.map(function(item,i){ return {label:item.label, pass:t[i], evidence:ev[i]}; });
+L3409: }
+L3410: window.openCallSopReview = function(idx){
+L3411:   var call = DIALER_RECENT_CALLS[idx]; if(!call) return;
+L3412:   document.getElementById('sopReviewName').textContent = 'Call with '+call.name;
+L3413:   document.getElementById('sopReviewMeta').textContent = call.time+' · '+call.duration;
+L3414:   var results = getCallSopResults(idx);
+L3415:   var passCount = results.filter(function(r){ return r.pass; }).length;
+L3416:   var pct = Math.round(100*passCount/results.length);
+L3417:   var color = pct>=80?'#0f6e56':pct>=50?'#c8860a':'#e24b4a';
+L3418:   document.getElementById('sopReviewScoreBar').innerHTML =
+L3419:     '<div style="flex:1"><div style="font-size:12.5px;font-weight:700;color:#6b6b74">SOP adherence on this call</div><div style="height:6px;background:#eee;border-radius:3px;margin-top:5px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:'+color+'"></div></div></div>'
+L3420:     + '<div style="font-size:19px;font-weight:800;color:'+color+'">'+pct+'%</div>';
+L3421:   document.getElementById('sopReviewList').innerHTML = results.map(function(r){
+L3422:     return '<div style="padding:10px 0;border-bottom:1px solid #f2f2f5">'
+L3423:       + '<div style="display:flex;align-items:center;gap:8px"><i class="ti '+(r.pass?'ti-check':'ti-x')+'" style="font-size:16px;color:'+(r.pass?'#1d9e75':'#e24b4a')+'"></i><span style="font-size:14px;color:#1a1a1a;font-weight:'+(r.pass?'500':'700')+'">'+r.label+'</span>'+(r.pass?'':'<span style="margin-left:auto;font-size:12px;font-weight:700;color:#e24b4a;background:#fdecec;padding:2px 6px;border-radius:6px">Missed</span>')+'</div>'
+L3424:       + '<div style="font-size:12.5px;color:'+(r.pass?'#6b6b74':'#a3311f')+';margin:4px 0 0 23px;line-height:1.4;font-style:'+(r.pass?'italic':'normal')+'">'+r.evidence+'</div>'
+L3425:     + '</div>';
+L3426:   }).join('');
+L3427:   document.getElementById('callSopOverlay').style.display = 'flex';
+L3428: };
+L3429: window.closeCallSopReview = function(){ document.getElementById('callSopOverlay').style.display = 'none'; };
+L3430: 
+L3431: // ───────────────── Planner sidebar switching + date label ─────────────────
+L3432: window.planSubTab = function(tab){
+L3433:   ['incoming','outgoing','recent'].forEach(function(t){
+L3434:     var panel = document.getElementById('planPanel-'+t);
+L3435:     if(panel) panel.style.display = (t===tab)?'block':'none';
+L3436:     var btn = document.getElementById('plannav-'+t);
+L3437:     if(btn) btn.classList.toggle('active', t===tab);
+L3438:   });
+L3439:   if(tab==='incoming') renderPlanIncoming();
+L3440:   if(tab==='outgoing') renderPlanOutgoing();
+L3441:   if(tab==='recent') renderPlanRecent();
+L3442: };
+L3443: function renderPlanDate(){
+L3444:   var el = document.getElementById('planDateLabel'); if(!el) return;
+L3445:   var d = new Date();
+L3446:   el.textContent = d.toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short'});
+L3447: }
+L3448: 
+L3449: var dialerNumber = '';
+L3450: function renderDialerKeypad(){
+L3451:   var grid = document.getElementById('dialerKeypadGrid'); if(!grid) return;
+L3452:   var keys = ['1','2','3','4','5','6','7','8','9','*','0','#'];
+L3453:   grid.innerHTML = keys.map(function(k){
+L3454:     return '<button onclick="dialerKeyPress(\''+k+'\')" style="height:52px;border-radius:50%;background:#f2f2f7;border:none;font-size:19px;font-weight:600;color:#1a1a1a;cursor:pointer">'+k+'</button>';
+L3455:   }).join('');
+L3456: }
+L3457: function dialerKeyPress(k){ dialerNumber += k; document.getElementById('dialerNumberDisplay').value = dialerNumber; }
+L3458: function dialerToggleKeypad(){
+L3459:   var sheet = document.getElementById('dialerKeypadSheet');
+L3460:   sheet.style.display = (sheet.style.display === 'flex') ? 'none' : 'flex';
+
+
+=== LEADS MODAL CODE (Search for leadsModalIdx) ===
+L1654:           <button onclick="closeLeadsModal()" title="Close" style="background:rgba(255,255,255,.16);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0">✕</button>
+L1655:         </div>
+L1656: 
+L1657:         <!-- Pagination bar: one lead per page, prev/next + dots -->
+L1658:         <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid #f0f0f0;flex-shrink:0;background:#fafafc">
+L1659:           <button onclick="leadsModalNav(-1)" id="leadsPrevBtn" style="width:28px;height:28px;border-radius:50%;border:1px solid #e5e5ea;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16.5px;color:#3b1254;flex-shrink:0">‹</button>
+L1660:           <div style="flex:1;display:flex;justify-content:center;gap:5px" id="leadsPagerDots"></div>
+L1661:           <button onclick="leadsModalNav(1)" id="leadsNextBtn" style="width:28px;height:28px;border-radius:50%;border:1px solid #e5e5ea;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16.5px;color:#3b1254;flex-shrink:0">›</button>
+L1662:         </div>
+L1663: 
+L1664:         <div style="flex:1;overflow-y:auto;padding:14px" id="leadsModalPage"></div>
+L1665: 
+L1666:         <!-- Persistent footer — always visible regardless of which lead page you're on -->
+L1667:         <div style="padding:9px 14px;border-top:1px solid #f0f0f0;flex-shrink:0;background:#fff9f9">
+L1668:           <div style="font-size:12.5px;font-weight:700;color:#e24b4a;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#e24b4a"></span>Cumulative Missed: 2 <span style="font-weight:500;color:#a32d2d;text-transform:none;letter-spacing:0">· expired without close, visible to manager</span></div>
+L1669:         </div>
+L1670:       </div>
+L1671:     </div>
+L1672: 
+L1673:     <!-- On-ground Call — Lead SOP checklist, shown before the call connects -->
+L1674:     <div class="ios-overlay" id="onGroundSopOverlay" style="align-items:flex-end">
+L1675:       <div class="sop-check-overlay-card">
+L1676:         <div class="sop-check-head">
+L1677:           <div class="sop-check-head-top">
+L1678:             <div class="sop-check-lead-av" id="sopCheckAv">MK</div>
+L1679:             <div style="flex:1"><div style="font-size:16.5px;font-weight:700;color:#fff" id="sopCheckName">Before you call Mukunda</div><div style="font-size:13px;color:rgba(255,255,255,.7)">Lead SOP parameters · review, then place the call</div></div>
+L1680:             <button onclick="closeOnGroundSop()" title="Close" style="background:rgba(255,255,255,.16);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;cursor:pointer;flex-shrink:0">✕</button>
+L1681:           </div>
+L1682:         </div>
+L1683:         <div class="sop-check-body" id="sopCheckBody"></div>
+L1684:         <div class="sop-check-footer">
+L1685:           <button class="sop-check-proceed-btn" id="sopCheckProceedBtn" onclick="proceedOnGroundCall()"><i class="ti ti-phone-outgoing"></i>Skip · Place the call</button>
+L1686:           <div class="sop-check-skip-note">These are the same Lead SOP checkpoints your manager set — reviewing them takes 10 seconds and keeps the call on-target.</div>
+L1687:         </div>
+L1688:       </div>
+L1689:     </div>
+L1690: 
+L1691:     <!-- Stat detail sheet — replaces the 4 KPI cards that used to sit below the banner; now reached by tapping a banner metric -->
+L1692:     <div class="ios-overlay" id="statDetailOverlay">
+L1693:       <div class="ios-sheet" style="position:relative">
+L1694:         <div class="ios-sheet-handle"></div>
+L1695:         <button class="sheet-close-btn" onclick="closeStatDetail()">✕</button>
+L1696:         <div class="ios-sheet-inner" id="statDetailBody" style="padding:18px 20px 24px"></div>
+L1697:       </div>
+L1698:     </div>
+L1699: 
+L1700:     <!-- AI CALLBACK SCHEDULER — AI-suggested optimal callback windows per lead, based on their call history and predicted agent availability -->
+L1701:     <!-- OG Score™ detail — capability breakdown, improvement areas, link to training modules -->
+L1702:     <div class="ios-overlay" id="ogScoreOverlay">
+L1703:       <div class="ios-sheet og-score-sheet" style="position:relative">
+L1704:         <div class="ios-sheet-handle"></div>
+L1705:         <button class="sheet-close-btn" onclick="closeOgScoreDetail()">✕</button>
+L1706:         <div class="ios-sheet-inner" style="padding:20px 20px 24px">
+L1707:           <div class="og-hero">
+L1708:             <div class="og-hero-tag">OG Score™</div>
+L1709:             <div class="og-ring lg" style="--pct:76;--ring-color:#1d9e75"><span class="og-ring-val">76<span class="og-ring-sub">/ 100</span></span></div>
+L1710:             <div class="og-hero-delta">▲ +13 since period start</div>
+L1711:             <div class="og-hero-percentile">72nd percentile across all staff</div>
+L1712:           </div>
+L1713: 
+L1714:           <div class="og-radar-wrap"><canvas id="ogCapabilityRadar"></canvas></div>
+L1715: 
+L1716:           <div class="og-critical-box">
+L1717:             <div style="display:flex;align-items:center;gap:8px">
+L1718:               <i class="ti ti-flame" style="font-size:17px;color:#c8860a;flex-shrink:0"></i>

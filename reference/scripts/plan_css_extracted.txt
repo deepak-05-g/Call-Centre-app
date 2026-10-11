@@ -1,0 +1,10 @@
+.plan-row{background:#fff;border:1px solid #ece7fa;border-radius:13px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 4px rgba(16,24,40,.05)}
+
+.plan-row-head{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer}
+
+.plan-row-detail{padding:0 13px 14px;border-top:1px solid #f2eef9}
+
+.plan-row-head{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer}
+
+.plan-row-detail{padding:0 13px 14px;border-top:1px solid #f2eef9}
+

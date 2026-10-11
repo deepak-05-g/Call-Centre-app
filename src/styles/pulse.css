@@ -1,0 +1,578 @@
+/* Pulse Styles */
+
+.pulse-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  background: #ffffff;
+}
+
+/* Pulse Header */
+.pulse-header {
+  background: linear-gradient(135deg, #3b1a5a, #6b2fa0);
+  padding: 12px 16px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(59, 26, 90, 0.25);
+}
+
+.pulse-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pulse-logo-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pulse-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.pulse-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.pulse-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pulse-new-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+  color: #3b1a5a;
+  transition: transform var(--og-transition-fast);
+}
+
+.pulse-new-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Search bar */
+.pulse-search-bar {
+  margin: 10px 12px 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid #e5e5ea;
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.05);
+}
+
+.pulse-search-text {
+  font-size: 13px;
+  color: #8e8e93;
+  flex: 1;
+}
+
+/* AvaniBot Hero Card */
+.avani-hero-card {
+  margin: 8px 12px 10px;
+  background: linear-gradient(120deg, #3b1254, #6d28d9 55%, #8b5cf6);
+  border-radius: 16px;
+  padding: 13px 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(109, 40, 217, 0.28);
+  color: #ffffff;
+  transition: transform var(--og-transition-fast);
+}
+
+.avani-hero-card:hover {
+  transform: translateY(-1px);
+}
+
+.avani-hero-shine {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  animation: shineAnimation 3.2s ease-in-out infinite;
+}
+
+@keyframes shineAnimation {
+  0% { left: -60%; }
+  100% { left: 140%; }
+}
+
+.avani-hero-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background var(--og-transition-fast);
+}
+
+.avani-hero-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+/* Kudos Hero Card */
+.kudos-hero-card {
+  margin: 8px 12px;
+  background: linear-gradient(120deg, #c8860a, #e0a52f 55%, #f0b649);
+  border-radius: 16px;
+  padding: 12px 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(200, 134, 10, 0.28);
+  color: #ffffff;
+  transition: transform var(--og-transition-fast);
+}
+
+.kudos-hero-card:hover {
+  transform: translateY(-1px);
+}
+
+/* Custom Agents Card */
+.custom-agents-card {
+  margin: 8px 12px;
+  background: #ffffff;
+  border: 1.5px solid #ece2fb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.custom-agents-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  cursor: pointer;
+}
+
+.custom-agents-body {
+  padding: 4px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Slack Style Channel Rows */
+.slack-section-label {
+  padding: 12px 14px 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8e8e93;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.slack-ch-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 0.5px solid #f2f2f5;
+  cursor: pointer;
+  transition: background var(--og-transition-fast);
+}
+
+.slack-ch-row:hover {
+  background: #f8fafc;
+}
+
+.slack-ch-hash {
+  font-size: 15px;
+  font-weight: 700;
+  color: #8e8e93;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.slack-ch-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.slack-ch-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.slack-ch-meta {
+  font-size: 12px;
+  color: #8e8e93;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slack-ch-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 8px;
+  background: #e1f5ee;
+  color: #0f6e56;
+  flex-shrink: 0;
+}
+
+.slack-ch-pin-badge {
+  background: #f59e0b;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Channel Chat View */
+.channel-chat-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f9f9fa;
+  position: relative;
+}
+
+.chat-header {
+  background: #3b1a5a;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.chat-back-btn {
+  background: rgba(255, 255, 255, 0.18);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.chat-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  flex: 1;
+}
+
+/* Pinned "Needs your input" card */
+.pinned-input-bar {
+  background: #fffaf0;
+  border-bottom: 1.5px solid #f59e0b;
+  padding: 10px 14px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(146, 64, 14, 0.08);
+  position: relative;
+  z-index: 10;
+}
+
+.pinned-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.pinned-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #7a4a00;
+}
+
+.pinned-count-badge {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+
+.pinned-tag {
+  font-size: 11.5px;
+  color: #a16207;
+}
+
+.pinned-task-box {
+  background: #ffffff;
+  border: 1px solid #fde3b0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 8px;
+}
+
+.pinned-task-q {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.pinned-task-ctx {
+  font-size: 12.5px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.pinned-opts-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.pinned-opt-btn {
+  border: 1px solid #d6d6db;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all var(--og-transition-fast);
+}
+
+.pinned-opt-btn:hover {
+  background: #0f6e56;
+  color: #ffffff;
+  border-color: #0f6e56;
+}
+
+.pinned-input-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pinned-text-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #e5e5ea;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.pinned-send-btn {
+  border: none;
+  background: #92400e;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* Chat Messages Scroll */
+.chat-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-msg-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  max-width: 85%;
+}
+
+.chat-msg-row.agent {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-msg-av {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.chat-msg-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-msg-body.agent {
+  align-items: flex-end;
+}
+
+.chat-msg-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.chat-sender-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.chat-msg-time {
+  font-size: 11px;
+  color: #8e8e93;
+}
+
+.chat-bubble {
+  background: #ffffff;
+  border: 1px solid #e5e5ea;
+  border-radius: 12px;
+  padding: 9px 12px;
+  font-size: 13.5px;
+  color: #1a1a1a;
+  line-height: 1.45;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.chat-bubble.agent {
+  background: #e1f5ee;
+  border-color: #c0ebd9;
+  color: #064e3b;
+}
+
+/* Chat Compose Bar */
+.chat-compose-bar {
+  background: #ffffff;
+  border-top: 1px solid #e5e5ea;
+  padding: 8px 12px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.chat-input-box {
+  flex: 1;
+  background: #f2f2f7;
+  border-radius: 20px;
+  padding: 8px 14px;
+  border: none;
+  font-size: 13.5px;
+  outline: none;
+}
+
+.chat-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f2f2f7;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.chat-send-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #1d9e75;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Emoji Tray */
+.chat-emoji-tray {
+  padding: 8px 4px 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px solid #f0f0f4;
+  margin-top: 6px;
+}
+
+.emoji-btn {
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: transform 0.1s ease;
+}
+
+.emoji-btn:hover {
+  transform: scale(1.25);
+}

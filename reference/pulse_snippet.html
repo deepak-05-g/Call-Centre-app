@@ -1,0 +1,354 @@
+id="asc-pulse">
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#3b1a5a,#6b2fa0);padding:10px 14px 0;flex-shrink:0;position:relative">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:26px;height:26px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="#E01E5A"/><rect x="10" y="1" width="5" height="5" rx="1.5" fill="#36C5F0"/><rect x="1" y="10" width="5" height="5" rx="1.5" fill="#2EB67D"/><rect x="10" y="10" width="5" height="5" rx="1.5" fill="#ECB22E"/></svg>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;align-items:baseline;gap:6px">
+              <span style="font-size:16px;font-weight:700;color:#fff">Pulse</span>
+              <span style="font-size:12.5px;color:rgba(255,255,255,.6)" id="pulseBrandLine">The Sleep Company · Koramangala</span>
+            </div>
+            <button onclick="togglePulseNewMsgMenu(event)" id="pulseCreateBtn" title="New message" style="width:30px;height:30px;border-radius:50%;background:#fff;border:none;box-shadow:0 2px 8px rgba(0,0,0,.28);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-plus" style="font-size:16px;color:#3b1a5a;font-weight:700"></i></button>
+            <div id="pulseNewMsgMenu" style="display:none;position:absolute;top:44px;right:14px;background:#fff;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.22);min-width:190px;overflow:hidden;z-index:400">
+              <div style="padding:9px 14px 5px;font-size:12.5px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:.4px">New message</div>
+              <div onclick="closePulseNewMsgMenu();openPulseChat('Sunita Rao','SR','DM','manager')" style="padding:10px 14px;font-size:14px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;align-items:center;gap:9px"><span style="width:22px;height:22px;border-radius:50%;background:#FFD700;color:#3a2a00;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center">SR</span>Sunita Rao</div>
+              <div onclick="closePulseNewMsgMenu();openPulseChat('Priya Krishnan','PK','DM','peer')" style="padding:10px 14px;font-size:14px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;align-items:center;gap:9px"><span style="width:22px;height:22px;border-radius:50%;background:#fdecec;color:#c23331;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center">PK</span>Priya Krishnan</div>
+              <div onclick="closePulseNewMsgMenu();openPulseChat('Raju Kumar','RK','DM','peer')" style="padding:10px 14px;font-size:14px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;align-items:center;gap:9px"><span style="width:22px;height:22px;border-radius:50%;background:#e1f5ee;color:#0f6e56;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center">RK</span>Raju Kumar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHANNELS + DIRECT MESSAGES — unified Slack-style sidebar (no more Customer Discussions/Internal/Channels/DMs/Kudos tab structure) -->
+        <div id="ppanel-channels" style="display:block;padding-bottom:80px">
+          <div onclick="openPulseChat('AvaniBot','✨','AvaniBot','avanibot')" style="margin:10px 12px 4px;display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #e5e5ea;border-radius:12px;padding:10px 12px;cursor:pointer;box-shadow:0 1px 3px rgba(16,24,40,.05)">
+            <div style="width:26px;height:26px;border-radius:8px;background:#7c3aed;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14.5px">✨</div>
+            <span style="font-size:13.5px;color:#8e8e93;flex:1">Ask AvaniBot or search Pulse…</span>
+            <i class="ti ti-search" style="font-size:14.5px;color:#c5c5c5"></i>
+          </div>
+
+          <!-- AvaniBot — promoted out of the flat Direct Messages list into a featured pinned card,
+               matching the Kudos hero-card treatment, since it's the primary way staff should be
+               reaching for a daily brief or asking a question, not just another DM in a list. -->
+          <div class="avani-hero-card" onclick="openPulseChat('AvaniBot','✨','AvaniBot','avanibot')">
+            <div class="avani-hero-shine"></div>
+            <div style="display:flex;align-items:center;gap:10px;position:relative;z-index:1;margin-bottom:10px">
+              <div style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:inset 0 1px 2px rgba(255,255,255,.25)">✨</div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:800;color:#fff">AvaniBot</span><span style="font-size:12.5px;font-weight:800;color:#fff;background:rgba(255,255,255,.2);padding:2px 7px;border-radius:8px;letter-spacing:.3px">ALWAYS ON</span></div>
+                <div style="font-size:12.5px;color:#e4d9fc;margin-top:1px">Ask me about anything happening in Pulse — daily briefs, action items, quick answers</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:7px;position:relative;z-index:1">
+              <button onclick="event.stopPropagation();avaniQuickDailyBriefStaff()" style="flex:1;padding:8px;border:none;border-radius:9px;background:rgba(255,255,255,.16);color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ti ti-sparkles" style="font-size:14.5px"></i>Daily Brief</button>
+              <button onclick="event.stopPropagation();avaniQuickAskQuestionStaff()" style="flex:1;padding:8px;border:none;border-radius:9px;background:rgba(255,255,255,.16);color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ti ti-message-circle-2" style="font-size:14.5px"></i>Ask a question</button>
+            </div>
+          </div>
+
+          <!-- Custom Agents — staff-facing agent catalog, mirrors the manager Pulse pattern -->
+          <div style="margin:10px 12px 4px;background:#fff;border:1.5px solid #ece2fb;border-radius:14px;overflow:hidden">
+            <div onclick="staffAgentFoldToggle(this)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;cursor:pointer">
+              <span style="width:30px;height:30px;border-radius:9px;background:#f1ecff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">✨</span>
+              <div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:800;color:#1a1a1a">Custom Agents</div><div style="font-size:13px;color:#8e8e93">Set up by your manager — already live, tap to open</div></div>
+              <i class="ti ti-chevron-down" id="staffAgentFoldChevron" style="font-size:16px;color:#8e8e93;transition:transform .18s"></i>
+            </div>
+            <div id="staffAgentFoldBody" style="display:none;padding:2px 10px 10px"></div>
+          </div>
+
+          <div style="padding:10px 12px 2px;font-size:12.5px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:.5px">General</div>
+          <div class="slack-ch-row" id="pulseCustDiscRow" onclick="openPulseCustomerList()">
+            <span class="slack-ch-hash"><i class="ti ti-brand-whatsapp" style="font-size:15px;color:#25D366"></i></span>
+            <div class="slack-ch-body"><span class="slack-ch-name">customer-discussions</span><span class="slack-ch-meta">Relayed via WhatsApp Business</span></div>
+            <span class="slack-ch-badge">2</span>
+          </div>
+
+          <!-- KUDOS — pulled out of the flat channel-row list into its own hero card. This is a
+               genuinely big deal for staff (public recognition from leaders), so it should not look
+               identical to a routine channel notification — gold gradient, trophy, live count,
+               latest kudos snippet, subtle shine animation. -->
+          <div onclick="openPulseKudosList()" class="kudos-hero-card">
+            <div class="kudos-hero-shine"></div>
+            <div style="display:flex;align-items:center;gap:10px;position:relative;z-index:1">
+              <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:inset 0 1px 2px rgba(255,255,255,.3)">🏆</div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:6px"><span style="font-size:14.5px;font-weight:800;color:#fff">Kudos</span><span style="font-size:12.5px;font-weight:800;color:#7c4a00;background:#fff;padding:2px 7px;border-radius:8px">3 NEW</span></div>
+                <div style="font-size:12.5px;color:#fff3d6;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"Great work with Mukunda — closed that objection beautifully!" — Sunita Rao</div>
+              </div>
+              <div style="text-align:center;flex-shrink:0"><div style="font-size:17px;font-weight:800;color:#fff">12</div><div style="font-size:12px;color:#fff3d6;font-weight:700;text-transform:uppercase">All-time</div></div>
+            </div>
+          </div>
+
+          <div style="padding:8px 12px 4px;font-size:12.5px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:.5px">Channels</div>
+          <!-- Vertical Custom Agent channels — mirrors the manager web app: any agent M2 activates
+               in Settings → Custom Agents with "Call Centre Staff (M0)" checked as a destination
+               stakeholder shows up here as a real channel, not just inside the Practice/Coaching
+               fold above. Rendered by renderStaffVerticalAgentChannels(). -->
+          <div id="staffVerticalAgentChannels"></div>
+          <div class="slack-ch-row" onclick="openPulseChat('Call Centre Team','Team','#callcentre-team','team')">
+            <span class="slack-ch-hash">#</span>
+            <div class="slack-ch-body"><span class="slack-ch-name">callcentre-team</span><span class="slack-ch-meta">Manager: Review call QA scores this week!</span></div>
+          </div>
+          <div class="slack-ch-row" onclick="openPulseChat('All Stores','All','#all-stores','store')">
+            <span class="slack-ch-hash">#</span>
+            <div class="slack-ch-body"><span class="slack-ch-name">all-stores</span><span class="slack-ch-meta">New Ortho Grid campaign from 1 June!</span></div>
+            <span class="slack-ch-time">10:22am</span><span class="slack-ch-badge">4</span>
+          </div>
+          <div class="slack-ch-row" onclick="openPulseChat('Avani AI Coaching','AI','#avani-coaching','ai')">
+            <span class="slack-ch-hash"><i class="ti ti-sparkles" style="font-size:15px;color:#7c3aed"></i></span>
+            <div class="slack-ch-body"><span class="slack-ch-name">avani-coaching</span><span class="slack-ch-meta">Your warranty score dropped 12% this week</span></div>
+            <span class="slack-ch-time">9:01am</span><span class="slack-ch-badge">1</span>
+          </div>
+          <div class="slack-ch-row" onclick="openPulseChat('Manage Shipment','Shipping Agent','#manage-shipment','shipment')">
+            <span class="slack-ch-hash">#</span>
+            <div class="slack-ch-body"><span class="slack-ch-name">manage-shipment</span><span class="slack-ch-meta">📦 Ortho Grid Pro — ready for delivery ✓</span></div>
+            <span class="slack-ch-time">10:05am</span><span class="slack-ch-badge">1</span>
+          </div>
+          <div class="slack-ch-row" onclick="openPulseChat('Quotation Tickets','Ticket Desk Agent','#quotation-tickets','tickets')">
+            <span class="slack-ch-hash">#</span>
+            <div class="slack-ch-body"><span class="slack-ch-name">quotation-tickets</span><span class="slack-ch-meta">🎫 Quotation approval — awaiting approval</span></div>
+            <span class="slack-ch-time">9:12am</span><span class="slack-ch-badge">1</span>
+          </div>
+          <div class="slack-ch-row" onclick="openPulseChat('New Hire Onboarding','Onboarding Agent','#new-hire-onboarding','onboarding')">
+            <span class="slack-ch-hash">#</span>
+            <div class="slack-ch-body"><span class="slack-ch-name">new-hire-onboarding</span><span class="slack-ch-meta">🎉 Welcome to the team!</span></div>
+            <span class="slack-ch-time">8:30am</span>
+          </div>
+
+          <div style="padding:14px 12px 4px;font-size:12.5px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:.5px">Direct Messages</div>
+          <div class="ios-chat-row" onclick="openPulseChat('Sunita Rao','SR','DM','manager')">
+            <div class="ios-av ios-av-amber" style="font-size:16px">SR</div>
+            <div class="ios-cm"><div class="ios-cn" style="display:flex;align-items:center;gap:5px">Sunita Rao <span style="font-size:12.5px;background:#FFD700;color:#3a2a00;padding:1px 5px;border-radius:5px;font-weight:700">MGR</span></div><div class="ios-cp">🌟 Great work with Mukunda — keep it up</div></div>
+            <div class="ios-cr"><span class="ios-ct">12:40pm</span></div>
+          </div>
+          <div class="ios-chat-row" onclick="openPulseChat('Priya Krishnan','PK','DM','peer')">
+            <div class="ios-av ios-av-red" style="font-size:16px">PK</div>
+            <div class="ios-cm"><div class="ios-cn">Priya Krishnan</div><div class="ios-cp">Can you cover my 3pm slot today?</div></div>
+            <div class="ios-cr"><span class="ios-ct">9:55am</span></div>
+          </div>
+          <div class="ios-chat-row" onclick="openPulseChat('Raju Kumar','RK','DM','peer')">
+            <div class="ios-av ios-av-teal" style="font-size:16px">RK</div>
+            <div class="ios-cm"><div class="ios-cn">Raju Kumar</div><div class="ios-cp">Nice cross-sell on the Tranquo chair! 🔥</div></div>
+            <div class="ios-cr"><span class="ios-ct">Yesterday</span></div>
+          </div>
+        </div>
+
+        <!-- CUSTOMER DISCUSSIONS OVERLAY — opened from the "#customer-discussions" channel row -->
+        <div id="pulseCustomerListOverlay" style="position:absolute;inset:0;background:#eceef4;z-index:325;display:none;flex-direction:column">
+          <div style="background:linear-gradient(135deg,#0f6e56,#128C7E);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0">
+            <button onclick="closePulseCustomerList()" title="Back" style="background:rgba(255,255,255,.18);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0">←</button>
+            <div style="flex:1"><div style="font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px">💬 customer-discussions</div><div style="font-size:12.5px;color:#c9f7d8">Relayed via WhatsApp Business · 2 open</div></div>
+          </div>
+        <div id="ppanel-external" style="padding-bottom:80px;flex:1;overflow-y:auto">
+          <div id="pulseUnansweredBanner" style="margin:8px 12px 2px;background:#fff3cd;border:1px solid #f3dfa8;border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:7px;cursor:pointer" onclick="openPulseCustomerChat('Ali','AL','+91 90000 11122','missedcall')">
+            <i class="ti ti-phone-x" style="font-size:16px;color:#c8860a"></i>
+            <div style="flex:1;font-size:12.5px;color:#7c4a00;font-weight:600">1 unanswered call &amp; 1 unreplied chat need attention</div>
+            <i class="ti ti-chevron-right" style="font-size:14.5px;color:#c8860a"></i>
+          </div>
+          <div style="padding:10px 12px 4px;font-size:12.5px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:.5px" id="custConvHeader">Customer Conversations</div>
+          <div class="ios-chat-row" onclick="openPulseCustomerChat('Mukunda','MK','+91 98765 43210','customer')">
+            <div class="ios-av ios-av-teal" style="font-size:16px">MK</div>
+            <div class="ios-cm"><div class="ios-cn" style="display:flex;align-items:center;gap:5px">Mukunda <span style="font-size:12.5px;background:#dcf8c6;color:#075e54;padding:1px 5px;border-radius:5px;font-weight:700">WA</span></div><div class="ios-cp">Quote for Ortho GRID sent · awaiting reply</div></div>
+            <div class="ios-cr"><span class="ios-ct">2:40pm</span><span class="ios-cb" style="background:#25D366">1</span></div>
+          </div>
+          <div class="ios-chat-row" onclick="openPulseCustomerChat('Kavitha R.','KR','+91 97654 32109','customer')">
+            <div class="ios-av ios-av-amber" style="font-size:16px">KR</div>
+            <div class="ios-cm"><div class="ios-cn" style="display:flex;align-items:center;gap:5px">Kavitha R. <span style="font-size:12.5px;background:#dcf8c6;color:#075e54;padding:1px 5px;border-radius:5px;font-weight:700">WA</span></div><div class="ios-cp">When can I come see the hybrid mattress?</div></div>
+            <div class="ios-cr"><span class="ios-ct">11:15am</span><span class="ios-cb" style="background:#25D366">2</span></div>
+          </div>
+          <div class="ios-chat-row" onclick="openPulseCustomerChat('Ali','AL','+91 90000 11122','missedcall')">
+            <div class="ios-av" style="background:#fdeaea;color:#c0392b;font-size:16px">AL</div>
+            <div class="ios-cm"><div class="ios-cn" style="display:flex;align-items:center;gap:5px">Ali <span style="font-size:12.5px;background:#fdeaea;color:#c0392b;padding:1px 5px;border-radius:5px;font-weight:700"><i class="ti ti-phone-x" style="font-size:12.5px;vertical-align:-1px"></i> Missed</span></div><div class="ios-cp" style="color:#c0392b">Called 9:40am · not returned yet</div></div>
+            <button onclick="event.stopPropagation();aSwitch('calls');setTimeout(function(){dialerStartCall('Ali')},80)" style="display:flex;align-items:center;gap:4px;background:#0f6e56;color:#fff;border:none;border-radius:8px;padding:6px 9px;font-size:12.5px;font-weight:700;cursor:pointer;flex-shrink:0"><i class="ti ti-phone" style="font-size:12.5px"></i>Call back</button>
+          </div>
+          <div style="padding:10px 14px;font-size:12.5px;color:#8e8e93;text-align:center" id="custConvFooter">Customer threads managed via WhatsApp Business + On-ground Calling</div>
+        </div>
+        </div><!-- pulseCustomerListOverlay close -->
+
+        <!-- KUDOS OVERLAY — opened from the "#kudos" channel row (GET only, not GIVE) -->
+        <div id="pulseKudosListOverlay" style="position:absolute;inset:0;background:#eceef4;z-index:326;display:none;flex-direction:column">
+          <div style="background:linear-gradient(135deg,#c8860a,#e0a52f);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0">
+            <button onclick="closePulseKudosList()" title="Back" style="background:rgba(255,255,255,.18);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0">←</button>
+            <div style="flex:1"><div style="font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px">🏆 kudos</div><div style="font-size:12.5px;color:#fdf0d5">Team recognition, sent by your leaders</div></div>
+          </div>
+        <div id="ppanel-kudos" style="padding-bottom:80px;flex:1;overflow-y:auto">
+          <div style="margin:8px 12px 4px;padding:7px 10px;background:#fff3e0;border-radius:8px;display:flex;align-items:center;gap:7px">
+            <i class="ti ti-info-circle" style="font-size:14.5px;color:#c8860a"></i>
+            <span style="font-size:12.5px;color:#854d0e;font-weight:500">You receive kudos — leaders send them to celebrate your wins 🎉</span>
+          </div>
+
+          <div style="padding:8px 12px 4px;font-size:12.5px;font-weight:700;color:#8e8e93;text-transform:uppercase;letter-spacing:.5px">📥 Incoming Kudos</div>
+
+          <div style="margin:0 12px 8px;background:linear-gradient(135deg,#fff8e1,#fff);border-radius:14px;padding:12px 14px;border:1.5px solid #FFD700;box-shadow:0 3px 10px rgba(255,215,0,.2)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <div style="width:38px;height:38px;border-radius:50%;background:#faeeda;display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:700;color:#854f0b;flex-shrink:0">SR</div>
+              <div style="flex:1"><div style="font-size:13.5px;font-weight:700;color:#1a1a1a">Sunita Rao (Manager)</div><div style="font-size:12.5px;color:#8e8e93">12:40pm · Today</div></div>
+              <div style="font-size:22px">🏆</div>
+            </div>
+            <div style="font-size:13.5px;color:#1a1a1a;line-height:1.5;background:#fffbf0;border-radius:8px;padding:8px 10px">"Great work with Mukunda — closed that warranty objection beautifully. Keep it up!"</div>
+          </div>
+
+          <div style="margin:0 12px 8px;background:linear-gradient(135deg,#fef3f2,#fff);border-radius:14px;padding:12px 14px;border:1.5px solid #fca5a5;box-shadow:0 2px 8px rgba(226,75,74,.1)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <div style="width:38px;height:38px;border-radius:50%;background:#e1f5ee;display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:700;color:#0f6e56;flex-shrink:0">RK</div>
+              <div style="flex:1"><div style="font-size:13.5px;font-weight:700;color:#1a1a1a">Raju Kumar</div><div style="font-size:12.5px;color:#8e8e93">Yesterday</div></div>
+              <div style="font-size:22px">🔥</div>
+            </div>
+            <div style="font-size:13.5px;color:#1a1a1a;line-height:1.5;background:#fff9f9;border-radius:8px;padding:8px 10px">"Nice cross-sell on the Tranquo chair! Impressed by how you read the customer."</div>
+          </div>
+
+          <div style="margin:0 12px 8px;background:linear-gradient(135deg,#f0fdf4,#fff);border-radius:14px;padding:12px 14px;border:1.5px solid #86efac;box-shadow:0 2px 8px rgba(29,158,117,.08)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <div style="width:38px;height:38px;border-radius:50%;background:#faeeda;display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:700;color:#854f0b;flex-shrink:0">SR</div>
+              <div style="flex:1"><div style="font-size:13.5px;font-weight:700;color:#1a1a1a">Sunita Rao (Manager)</div><div style="font-size:12.5px;color:#8e8e93">2 days ago</div></div>
+              <div style="font-size:22px">💪</div>
+            </div>
+            <div style="font-size:13.5px;color:#1a1a1a;line-height:1.5;background:#f7fffe;border-radius:8px;padding:8px 10px">"Top SOP score this week — 72/100 on Mukunda's conversation. Store leader!"</div>
+          </div>
+
+          <div style="padding:10px 12px;font-size:12.5px;color:#8e8e93;text-align:center">Your all-time kudos: <b style="color:#1d9e75">12</b> 🎉</div>
+        </div>
+        </div><!-- pulseKudosListOverlay close -->
+      </div>
+
+      <!-- Chat overlay for Pulse channels/DMs -->
+      <div id="notificationOverlay" style="position:absolute;inset:0;background:#f7f7f9;z-index:320;display:none;flex-direction:column">
+        <div style="background:#fff;border-bottom:1px solid #e5e5ea;padding:14px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+          <button onclick="closeNotificationOverlay()" title="Back" style="background:#f0f0f3;border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#45454d;font-size:16px;cursor:pointer;flex-shrink:0">←</button>
+          <div style="flex:1"><div style="font-size:16px;font-weight:800;color:#1a1a1a">Notifications</div><div style="font-size:12px;color:#8e8e93" id="notifHeaderSub">— </div></div>
+        </div>
+        <div style="display:flex;background:#f2f2f7;margin:10px 12px 0;border-radius:9px;padding:2px" id="notifFilterRow">
+          <button onclick="notifSetFilter('all',this)" class="notif-filter-btn active" style="flex:1;padding:6px 11px;border-radius:7px;font-size:12.5px;font-weight:700;border:none;cursor:pointer;background:#fff;color:#1a1a1a">All</button>
+          <button onclick="notifSetFilter('action',this)" class="notif-filter-btn" style="flex:1;padding:6px 11px;border-radius:7px;font-size:12.5px;font-weight:700;border:none;cursor:pointer;background:none;color:#8e8e93">Needs action</button>
+          <button onclick="notifSetFilter('alert',this)" class="notif-filter-btn" style="flex:1;padding:6px 11px;border-radius:7px;font-size:12.5px;font-weight:700;border:none;cursor:pointer;background:none;color:#8e8e93">Alerts</button>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:12px" id="notifListBody"></div>
+      </div>
+      <div id="pulseChatOverlay" style="position:absolute;inset:0;background:#fff;z-index:300;display:none;flex-direction:column">
+        <div style="background:#3b1a5a;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0">
+          <button onclick="closePulseChat()" title="Back" style="background:rgba(255,255,255,.18);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0">←</button>
+          <div id="pchatTitle" style="font-size:15px;font-weight:700;color:#fff;flex:1">#callcentre-team</div>
+          <button onclick="avaniOpenSearchStaff()" title="Ask AvaniBot about this channel" style="background:rgba(255,255,255,.15);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0"><i class="ti ti-sparkles" style="font-size:14.5px;color:#fff"></i></button>
+        </div>
+        <!-- Chat messages -->
+        <div style="flex:1;overflow-y:auto;padding:12px 14px;background:#f9f9f9" id="pchatBody"></div>
+        <!-- Message compose bar with emojis -->
+        <div style="background:#fff;border-top:0.5px solid #e5e5ea;padding:8px 10px;flex-shrink:0">
+          <div style="display:flex;gap:8px;align-items:flex-end">
+            <div style="flex:1;background:#f2f2f7;border-radius:20px;padding:8px 12px;min-height:36px;display:flex;align-items:center">
+              <span style="font-size:13.5px;color:#8e8e93" id="pchatInput" contenteditable="true">Message #callcentre-team…</span>
+            </div>
+            <button onclick="togglePulseEmoji()" style="width:32px;height:32px;border-radius:50%;background:#f2f2f7;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:17px">😊</button>
+            <button onclick="sendPulseMsg()" style="width:32px;height:32px;border-radius:50%;background:#1d9e75;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+              <i class="ti ti-send" style="font-size:15px;color:#fff"></i>
+            </button>
+          </div>
+          <!-- Emoji picker -->
+          <div id="pulseEmojiPicker" style="display:none;padding:8px 0 0;flex-wrap:wrap;gap:4px">
+            <div style="display:flex;flex-wrap:wrap;gap:6px;padding:4px 2px">
+              <span onclick="insertEmoji('👍')" style="font-size:20px;cursor:pointer">👍</span>
+              <span onclick="insertEmoji('🙌')" style="font-size:20px;cursor:pointer">🙌</span>
+              <span onclick="insertEmoji('🔥')" style="font-size:20px;cursor:pointer">🔥</span>
+              <span onclick="insertEmoji('💪')" style="font-size:20px;cursor:pointer">💪</span>
+              <span onclick="insertEmoji('🏆')" style="font-size:20px;cursor:pointer">🏆</span>
+              <span onclick="insertEmoji('😊')" style="font-size:20px;cursor:pointer">😊</span>
+              <span onclick="insertEmoji('✅')" style="font-size:20px;cursor:pointer">✅</span>
+              <span onclick="insertEmoji('❤️')" style="font-size:20px;cursor:pointer">❤️</span>
+              <span onclick="insertEmoji('🎉')" style="font-size:20px;cursor:pointer">🎉</span>
+              <span onclick="insertEmoji('📢')" style="font-size:20px;cursor:pointer">📢</span>
+              <span onclick="insertEmoji('💡')" style="font-size:20px;cursor:pointer">💡</span>
+              <span onclick="insertEmoji('🛏️')" style="font-size:20px;cursor:pointer">🛏️</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AvaniBot in-channel search overlay -->
+      <div id="avaniSearchOverlayStaff" style="position:absolute;inset:0;background:#fff;z-index:305;display:none;flex-direction:column">
+        <div style="background:#3b1a5a;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0">
+          <button onclick="closeAvaniSearchStaff()" title="Back" style="background:rgba(255,255,255,.18);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0">←</button>
+          <div style="flex:1"><div style="font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px">✨ AvaniBot</div><div style="font-size:13px;color:#c9b6ea" id="avaniSearchSubStaff">Searching in #callcentre-team</div></div>
+        </div>
+        <div style="padding:10px 14px;border-bottom:1px solid #e5e5ea;flex-shrink:0;background:#fafafc">
+          <div style="display:flex;gap:8px;align-items:center;background:#fff;border:1.5px solid #e5e5ea;border-radius:20px;padding:7px 12px">
+            <i class="ti ti-search" style="font-size:15px;color:#8e8e93"></i>
+            <input id="avaniSearchInputStaff" placeholder="Ask a question about this channel…" style="flex:1;border:none;background:none;outline:none;font-size:14px" onkeydown="if(event.key==='Enter')avaniRunSearchStaff()"/>
+          </div>
+          <button onclick="avaniRunSearchStaff()" style="margin-top:8px;width:100%;padding:9px;border:none;border-radius:9px;background:#7c3aed;color:#fff;font-size:14px;font-weight:700;cursor:pointer">Ask AvaniBot</button>
+        </div>
+        <div id="avaniSearchResultsStaff" style="flex:1;overflow-y:auto;padding:14px;background:#fafafc"></div>
+      </div>
+
+      <!-- Customer-facing chat overlay (WhatsApp + Voice Call channel selector) -->
+      <div id="pulseCustomerChatOverlay" style="position:absolute;inset:0;background:#e9edf1;z-index:310;display:none;flex-direction:column">
+        <div style="background:#075e54;padding:10px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)">
+          <button onclick="closePulseCustomerChat()" title="Back" style="background:rgba(255,255,255,.18);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0">←</button>
+          <div id="pccAvatar" style="width:32px;height:32px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;flex-shrink:0">MK</div>
+          <div style="flex:1;min-width:0">
+            <div id="pccName" style="font-size:14.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Mukunda</div>
+            <div id="pccSub" style="font-size:12.5px;color:rgba(255,255,255,.65)">+91 98765 43210 · Hot Lead</div>
+          </div>
+          <button onclick="pulseStartCall()" style="background:rgba(255,255,255,.15);border:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ti ti-phone" style="color:#fff;font-size:15px"></i></button>
+          <button onclick="openPulseTagSheet()" style="background:rgba(255,255,255,.15);border:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ti ti-user-plus" style="color:#fff;font-size:15px"></i></button>
+        </div>
+        <!-- Unanswered strip, shown only for missed-call threads -->
+        <div id="pccUnansweredStrip" style="display:none;background:#fff3cd;padding:6px 12px;font-size:13px;color:#7c4a00;font-weight:600;text-align:center;border-bottom:1px solid #f3dfa8">
+          <i class="ti ti-phone-x" style="font-size:13.5px;vertical-align:-1px;margin-right:3px"></i>Missed this call — call back or reply to keep SLA
+        </div>
+        <div id="pccMessages" style="flex:1;overflow-y:auto;padding:12px 14px;background:#e9edf1;background-image:radial-gradient(#d7dee3 1px,transparent 1px);background-size:14px 14px"></div>
+        <!-- Channel selector + compose -->
+        <div style="background:#fff;border-top:0.5px solid #e5e5ea;flex-shrink:0">
+          <div style="display:flex;padding:6px 10px 0;gap:6px">
+            <div id="pccChanWa" onclick="pulseSetChannel('wa')" style="flex:1;text-align:center;padding:6px 0;border-radius:8px 8px 0 0;font-size:12.5px;font-weight:700;color:#0f6e56;background:#dcf8c6;cursor:pointer">💬 WhatsApp</div>
+            <div id="pccChanCall" onclick="pulseSetChannel('call')" style="flex:1;text-align:center;padding:6px 0;border-radius:8px 8px 0 0;font-size:12.5px;font-weight:700;color:#8e8e93;background:#f2f2f7;cursor:pointer">📞 Voice Call</div>
+          </div>
+          <div id="pccComposeWa" style="padding:8px 10px 10px;display:flex;gap:8px;align-items:flex-end">
+            <div style="flex:1;background:#f2f2f7;border-radius:20px;padding:8px 12px;min-height:36px;display:flex;align-items:center">
+              <span style="font-size:13.5px;color:#8e8e93" id="pccInput" contenteditable="true">Message on WhatsApp…</span>
+            </div>
+            <button onclick="sendPulseCustomerMsg()" style="width:34px;height:34px;border-radius:50%;background:#1d9e75;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+              <i class="ti ti-send" style="font-size:15px;color:#fff"></i>
+            </button>
+          </div>
+          <div id="pccComposeCall" style="display:none;padding:10px 14px 14px;text-align:center">
+            <div style="font-size:13px;color:#8e8e93;margin-bottom:8px">Switch to voice — this logs as an on-ground call on this lead</div>
+            <button onclick="pulseStartCall()" style="border:none;border-radius:100px;padding:10px 22px;font-size:14px;font-weight:700;color:#fff;background:#1d9e75;cursor:pointer;display:inline-flex;align-items:center;gap:6px"><i class="ti ti-phone-call"></i>Start On-ground Call</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tag / forward staff sheet -->
+      <div class="ios-overlay" id="pulseTagOverlay">
+        <div class="ios-sheet" style="position:relative">
+          <div class="ios-sheet-handle"></div>
+          <button class="sheet-close-btn" onclick="closePulseTagSheet()">✕</button>
+          <div class="ios-sheet-inner">
+            <div class="ios-sheet-title">Tag or forward</div>
+            <div class="ios-sheet-sub" style="margin-bottom:12px">Loop in a teammate or your manager on this chat</div>
+            <div id="pulseTagList">
+              <div class="pulse-tag-opt" data-name="Sunita Rao" onclick="togglePulseTagPerson(this)" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border:1.5px solid #e5e5ea;border-radius:11px;margin-bottom:7px;cursor:pointer">
+                <div style="width:32px;height:32px;border-radius:50%;background:#faeeda;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:#854f0b;flex-shrink:0">SR</div>
+                <div style="flex:1"><div style="font-size:14px;font-weight:700;color:#1a1a1a">Sunita Rao</div><div style="font-size:12.5px;color:#8e8e93">Store Manager</div></div>
+                <i class="ti ti-circle-check" style="font-size:16px;color:#c0c0c0"></i>
+              </div>
+              <div class="pulse-tag-opt" data-name="Priya Krishnan" onclick="togglePulseTagPerson(this)" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border:1.5px solid #e5e5ea;border-radius:11px;margin-bottom:7px;cursor:pointer">
+                <div style="width:32px;height:32px;border-radius:50%;background:#e1f5ee;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:#0f6e56;flex-shrink:0">PK</div>
+                <div style="flex:1"><div style="font-size:14px;font-weight:700;color:#1a1a1a">Priya Krishnan</div><div style="font-size:12.5px;color:#8e8e93">Sales Associate</div></div>
+                <i class="ti ti-circle-check" style="font-size:16px;color:#c0c0c0"></i>
+              </div>
+              <div class="pulse-tag-opt" data-name="Raju Kumar" onclick="togglePulseTagPerson(this)" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border:1.5px solid #e5e5ea;border-radius:11px;margin-bottom:2px;cursor:pointer">
+                <div style="width:32px;height:32px;border-radius:50%;background:#e5f1fb;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:#1a56a0;flex-shrink:0">RK</div>
+                <div style="flex:1"><div style="font-size:14px;font-weight:700;color:#1a1a1a">Raju Kumar</div><div style="font-size:12.5px;color:#8e8e93">Sales Associate</div></div>
+                <i class="ti ti-circle-check" style="font-size:16px;color:#c0c0c0"></i>
+              </div>
+            </div>
+            <div class="ios-btn-row" style="margin-top:12px">
+              <button class="ios-btn-secondary" onclick="pulseTagAction('tag')">Tag in Chat</button>
+              <button onclick="pulseTagAction('forward')" style="flex:1;padding:13px;border:none;border-radius:100px;font-size:14.5px;color:#fff;background:#1d9e75;cursor:pointer;font-weight:600">Forward Chat</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <!-- DASHBOARD -->
+      <div class="sc active" 

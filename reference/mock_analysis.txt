@@ -1,0 +1,52 @@
+Main Screens: []
+Overlays: ['callWrapupOverlay', 'callSopOverlay', 'calShareOverlay', 'staffAgentConfigOverlay', 'pulseCustomerListOverlay', 'pulseKudosListOverlay', 'notificationOverlay', 'pulseChatOverlay', 'avaniSearchOverlayStaff', 'pulseCustomerChatOverlay', 'pulseTagOverlay', 'dateRangeOverlay', 'leadsOverlay', 'leadsModalSub', 'leadsModalPage', 'onGroundSopOverlay', 'statDetailOverlay', 'ogScoreOverlay', 'rankDetailOverlay', 'linkedinPushOverlay', 'aosOverlay', 'aWaOverlay', 'noInterestOverlay', 'cameBackOverlay', 'leadAnalysisOverlay']
+
+=== SCRIPT BLOCK 0 (len 171) ===
+FUNCTIONS: []
+
+=== SCRIPT BLOCK 1 (len 215811) ===
+VARIABLE: PULSE_INTERNAL_THREADS = {
+  'Call Centre Team': { title:'#callcentre-team', dateLabel:'Today · Call Centre Team', messages:[
+      {who:'Sunita Rao', init:'SR', bg:'#faeeda',...
+VARIABLE: STAFF_AGENT_TASKS = {
+  skillimprovement: {
+    icon:'🎯', title:'Skill Improvement Coach', sub:'Practice & feedback agent',
+    gradient:'linear-gradient(135deg,#5b21b6,#...
+VARIABLE: STAFF_AGENT_ACTIVE = {}...
+VARIABLE: STAFF_AGENT_STATE = {}...
+VARIABLE: STAFF_VERTICAL_AGENT_CHANNELS = [
+  {id:'emi-push-nudges', name:'emi-push-nudges', agent:'EMI Push Nudge', icon:'💳', meta:'EMI mentioned in 4/11 calls this shift (36%) — below target...
+VARIABLE: NOTIFICATIONS_FEED = [
+  {id:'n1', needsAction:true, icon:'☎️', color:'#854f0b', title:'Sunita Rao is checking greeting-QA scores Friday — reply in #callcentre-team', time...
+VARIABLE: shown = []...
+VARIABLE: PULSE_CUSTOMER_DATA = {
+  'Mukunda': { initials:'MK', avatarBg:'#0f6e56', phone:'+91 98765 43210', status:'Hot Lead', missed:false,
+    thread:[
+      {from:'customer', ch:...
+VARIABLE: pulseTagSelected = []...
+VARIABLE: AVANI_ACTION_ITEMS_STAFF = {
+  'sunita': {name:'Sunita Rao', items:['Approve your quote for Mukunda — flagged waiting since yesterday'], source:'DM with Sunita Rao'},
+  'priya':...
+VARIABLE: LEADS_MODAL_DATA_RETAIL = [
+  {
+    name:'Mukunda', initials:'MK', avatarBg:'#e1f5ee', avatarColor:'#0f6e56',
+    interest:'Interested: Ortho GRID · ₹8,490',
+    product:'Ortho...
+VARIABLE: LEADS_MODAL_DATA_HEALTH = [
+  {
+    name:'Mukunda', initials:'MK', avatarBg:'#e1f5ee', avatarColor:'#0f6e56',
+    interest:'Post-discharge follow-up \u00b7 BP review',
+    prod...
+VARIABLE: BUCKET_ICON = {'Quotation Demanded':'ti-file-invoice','Product Related':'ti-package','Financing Related':'ti-currency-rupee','Warranty Related':'ti-shield-check','I...
+VARIABLE: LEAD_SOP_CHECK_DATA_RETAIL = {
+  'Mukunda': {
+    initials: 'MK', phone: '+91 98765 43210',
+    product: {
+      emoji:'🛏️', name:'Smart Ortho GRID Mattress', price:'₹8,490', orig...
+VARIABLE: LEAD_SOP_CHECK_DATA_HEALTH = {
+  'Mukunda': {
+    initials: 'MK', phone: '+91 98765 43210',
+    items: [
+      {title:'Medication Adherence', sub:'Confirm BP tablets taken as pres...
+FUNCTIONS: ['openPulseCustomerList', 'closePulseCustomerList', 'openPulseKudosList', 'closePulseKudosList', 'pulseTabs', 'pulseExtInt', 'leadsSubTab', 'openWaLeadContact', 'seedStaffAgentsActive', 'renderStaffAgentCatalog', 'agentTitleToChannelSlug', 'renderStaffVerticalAgentChannels', 'renderStaffCardBody', 'renderStaffChatBubble', 'renderStaffPulseThread', 'openPulseChat', 'closePulseChat', 'renderNotificationList', 'channelHasMention', 'applyMentionBadgesToStaticRows', 'openPulseCustomerChat', 'closePulseCustomerChat', 'renderPulseCustomerThread', 'pulseSetChannel', 'sendPulseCustomerMsg', 'pulseStartCall', 'openPulseTagSheet', 'closePulseTagSheet', 'togglePulseTagPerson', 'pulseTagAction', 'togglePulseEmoji', 'insertEmoji', 'sendPulseMsg', 'avaniQuickDailyBriefStaff', 'avaniQuickAskQuestionStaff', 'avaniBotDMReplyStaff', 'avaniOpenSearchStaff', 'closeAvaniSearchStaff', 'avaniRunSearchStaff', 'renderLeadsModalPage', 'leadsModalNav', 'openLeadsModal', 'closeLeadsModal', 'closeQuoteBar', 'sopStep', 'renderPlanIncoming', 'planOutgoingLeads', 'renderPlanOutgoing', 'renderPlanRecent', 'getCallSopResults', 'renderPlanDate', 'renderDialerKeypad', 'dialerKeyPress', 'dialerToggleKeypad', 'scriptFor', 'renderLiveSopChecklist', 'checkSopNudge', 'appendTranscriptLine', 'startCallTranscript', 'advanceTranscript', 'updateSentimentUI', 'stopCallTranscript', 'draftAiCallSummary', 'renderAiAssist', 'renderDashQueueDetail', 'renderDashGamifySummary', 'calSelectDay', 'calMonthNav', 'calJumpToday', 'calRenderMonthGrid', 'calRenderInvitesList', 'calRenderAll', 'renderCalShareOptions', 'aSwitch', 'toggleDropdown', 'openAvatarPanel', 'closeAvatarPanel', 'saveAvatarAndClose', 'openSettings', 'closeSettings', 'selectStaffChannel', 'renderLanguagePicker', 'markSettingsDirty', 'saveSettingsChanges', 'toggleDevMode', 'setVertical', 'dismissNotif', 'toggleAndRec', 'startLiveTranscript', 'typeChar', 'stopLiveTranscript', 'closeSheet', 'rankRenderBreakdown', 'showMotivToast', 'closeAndGoToDash', 'openWaSend', 'closeWaSheet', 'selectAvatar', 'selectSellingAvatar', 'aSetMode', 'practiseGoTo', 'practiseBackToPicker', 'practiseRenderPicker', 'practiseSelect', 'practiseStartRecording', 'practiseStopRecording', 'practiseRenderFeedback', 'assessChip', 'assessInputChange', 'autoGrow', 'scrollAssessToBottom', 'appendUserBubble', 'appendAvaniBubble', 'appendTypingIndicator', 'removeTypingIndicator', 'escHtml', 'markdownToHtml', 'sendAssessMessage', 'handleAssessAttachment', 'removeAttachment', 'toggleAssessMic', 'genId', 'saveCurrentSession', 'autoTitleSession', 'startNewAssessChat', 'loadSession', 'deleteSession', 'timeAgo', 'groupByDate', 'renderHistoryList', 'filterHistoryList', 'openAssessHistory', 'closeAssessHistory', 'aPulseTab', 'sendKudos', 'cycleDateFilter', 'iToggleConv', 'iConvTab', 'dashConvTab', 'pdStars', 'openNoInterestSheet', 'closeNoInterestSheet', 'submitNoInterest', 'openCameBackSheet', 'closeCameBackSheet', 'submitCameBack', 'openDateRange', 'closeDateRange', 'drPreset', 'applyDateRange', 'openLeadAnalysisModal', 'closeLeadAnalysisModal', 'staffNamedPill', 'staffGoalChips', 'staffGoalStripHtml', 'staffParseOpening', 'staffOpeningCardHtml']
+
