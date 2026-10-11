@@ -3,8 +3,12 @@
 [![React](https://img.shields.io/badge/React-v19.2.8-61dafb?style=flat&logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-v8.3.4-646cff?style=flat&logo=vite)](https://vitejs.dev)
 [![Design](https://img.shields.io/badge/UI%20Design-Emerald%20%26%20Glassmorphic-0f6e56?style=flat)](https://on-ground.ai)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-000000?style=flat&logo=vercel)](https://call-centre-app-nine.vercel.app/)
 [![Build Status](https://img.shields.io/badge/Build-Passing%20(0%20errors)-success)](https://vitejs.dev)
 [![Linter](https://img.shields.io/badge/Linter-Clean%20(0%20errors)-success)](https://oxc.rs)
+
+> 🌐 **Live Demo URL**: [https://call-centre-app-nine.vercel.app/](https://call-centre-app-nine.vercel.app/)  
+> 🔗 **GitHub Repository**: [https://github.com/deepak-05-g/Call-Centre-app](https://github.com/deepak-05-g/Call-Centre-app)
 
 A complete, production-grade, pixel-polished web frontend implementation of the **On-Ground.ai Call Centre Platform (Retail Division)**. Built strictly following the assignment specification and reference production HTML mock (`OnGround_CallCentre_App_Mock (1).html`).
 
