@@ -1,0 +1,261 @@
+<USER_REQUEST>
+# MASTER PROMPT — On-Ground.ai Call Centre App Assignment
+
+You are a senior frontend engineer and UI implementation specialist. Build a complete, polished, functional frontend implementation of the On-Ground.ai Call Centre application described in the provided assignment PDF and demonstrated in the provided HTML mock.
+
+## 1. Read the references first
+
+Before writing code:
+
+1. Read the entire assignment PDF and extract all mandatory requirements, bonus features, submission requirements, and evaluation criteria.
+2. Inspect the supplied HTML mock in a browser or use available tools to examine its screens, layout, visual hierarchy, spacing, colors, typography, components, and interactions.
+3. Click through every screen and modal in the mock wherever possible.
+4. Create a concise implementation checklist mapping every requirement to the screen and behavior that will satisfy it.
+5. Treat the PDF as the source of assignment requirements and the HTML as the visual and behavioral reference.
+6. Do not copy the mock's source code or reuse the mock as the application. Build an original implementation from scratch.
+
+Do not start coding until you understand the required screens and the navigation between them.
+
+## 2. Technology stack
+
+Use:
+- React
+- Vite
+- JavaScript
+- CSS or CSS modules
+- React Router only if useful; simple internal navigation is also acceptable
+- Lucide React or another suitable icon library
+- Recharts for charts if time permits
+- Local JavaScript/JSON mock data
+
+Do not build a backend, database, authentication service, or real telephony integration. Use realistic mock data. The application must run locally without external API keys.
+
+If the project already contains code, inspect it before changing anything. Preserve useful existing work and avoid unnecessary rewrites.
+
+## 3. Required application shell
+
+Implement a consistent application layout containing:
+
+- A left sidebar with the appropriate navigation items and icons.
+- A top navigation bar matching the reference.
+- A main content area that changes when navigation items are selected.
+- Consistent typography, spacing, colors, borders, shadows, and card styles.
+- Reusable components rather than duplicated screen markup.
+- Responsive behavior for desktop, tablet, and mobile widths.
+
+Use the supplied mock as the primary visual reference. Avoid inventing an entirely different design.
+
+## 4. Mandatory screens and features
+
+### A. Dashboard
+Implement:
+- KPI/statistic cards.
+- Progress information.
+- A section showing who is waiting or needs attention.
+- Earnings information.
+- Tasks or follow-up items.
+- Seven-day charts or equivalent chart visualizations.
+- Clickable task/lead items that open the Leads modal where appropriate.
+
+### B. Plan section
+Implement navigation or tabs for all three subsections:
+
+1. Calls to make
+   - Display leads ranked by score.
+   - Show relevant lead information and call-related details.
+   - Support expandable/collapsible rows.
+   - Support pagination with working Previous/Next controls.
+   - Make relevant lead rows interactive.
+
+2. Incoming
+   - Display incoming or missed calls.
+   - Show the potential value at stake where represented in the reference.
+   - Provide a working Call Back action on every applicable row.
+   - Clicking Call Back must create a visible feedback state, such as a simulated call-in-progress or callback confirmation.
+
+3. Recent
+   - Display recent calls.
+   - Show call type, time, and duration.
+   - Allow a call to be selected and reviewed in a detail panel, modal, or equivalent view.
+
+### C. Calendar
+Implement:
+- A month-grid calendar.
+- Event indicators or dots.
+- Working previous-month and next-month navigation.
+- A working Today button.
+- Mock events that can be inspected or selected.
+- Correct month/year display when navigating.
+
+### D. Pulse home
+Implement:
+- The Pulse home screen matching the supplied reference.
+- AvaniBot or the corresponding agent/assistant element.
+- Role/task agents where shown.
+- Channel navigation.
+- Kudos or the corresponding recognition section.
+- Working navigation from the home screen into channels.
+
+### E. Pulse channel/chat
+Implement:
+- A channel header and working back/navigation action.
+- Chat messages with sender names and timestamps.
+- Distinct alignment/styling for other users' messages and agent messages.
+- A pinned “Needs your input” card with the two actions shown in the mock.
+- A reply/message input and a working Send action.
+- New messages must appear in the chat without refreshing the page.
+- Clicking the two card actions must produce a visible state change or confirmation appropriate to the selected action.
+
+### F. Leads modal
+Implement a reusable lead-details modal that can be opened from the relevant dashboard task or lead rows.
+
+Include:
+- Lead details.
+- ICP score.
+- Lead intent score.
+- Collapsible buying signals.
+- Next and Previous lead navigation.
+- Working close action.
+- Correct lead data when navigating between records.
+- Reasonable keyboard and focus behavior where feasible.
+
+## 5. Bonus features — implement after mandatory features
+
+If time allows, add:
+- A simulated practise-a-call action.
+- A callback action from the appropriate screens.
+- Functional channel messaging.
+- Functional “Needs your input” responses.
+- Improved mobile-width support.
+- Charts using Recharts.
+- A floating dial button or demo strip only if present in the reference and time permits.
+
+Do not sacrifice mandatory requirements to complete optional polish.
+
+## 6. Functional behavior rules
+
+Every visible control must work or clearly communicate that it is disabled.
+
+Examples:
+- Sidebar navigation changes the active screen.
+- Tabs switch the content.
+- Expandable rows open and close.
+- Pagination changes the displayed records.
+- Calendar buttons change the displayed month.
+- Modals open and close correctly.
+- Previous/Next lead controls update the displayed lead.
+- Chat Send adds the typed message to the chat and clears the input.
+- Call Back and call-practice actions show simulated feedback.
+- Search, filters, and buttons must not be decorative if they appear interactive in the reference.
+
+Use local React state and mock data. Do not pretend that real calls, backend messages, or external actions have occurred. Label simulated interactions appropriately.
+
+## 7. Visual quality requirements
+
+Match the provided mock as closely as reasonably possible.
+
+Pay particular attention to:
+- Sidebar width and navigation spacing.
+- Header height and content alignment.
+- Card dimensions and grid layouts.
+- Font sizes and font weights.
+- Background colors, borders, radii, and subtle shadows.
+- Spacing between headings, sections, and controls.
+- Tables and list row density.
+- Chart dimensions.
+- Modal sizing and overlay.
+- Chat bubble alignment.
+- Responsive layouts.
+
+Avoid:
+- Huge headings that do not match the mock.
+- Excessive gradients and decorative colors.
+- Emoji replacing proper interface icons.
+- Overly rounded cards if the reference is restrained.
+- Random placeholder text.
+- Empty screens or unfinished sections.
+- Excessive animation.
+- One giant React component containing the entire app.
+
+## 8. Code quality
+
+Organize the project into sensible components, for example:
+- Layout / Sidebar / Topbar
+- Dashboard
+- CallsToMake
+- IncomingCalls
+- RecentCalls
+- Calendar
+- PulseHome
+- PulseChannel
+- LeadsModal
+- Reusable cards, tables, buttons, and mock-data modules
+
+Use meaningful variable and component names. Keep components understandable and avoid unnecessary abstractions.
+
+Add comments only where they help explain non-obvious logic. Handle empty states and common interaction edge cases. Avoid unnecessary dependencies.
+
+## 9. README and assignment compliance
+
+Create a README.md containing:
+- Project overview.
+- Technology stack and why it was selected.
+- Prerequisites.
+- Exact installation and run commands.
+- Implemented mandatory features.
+- Implemented bonus features.
+- Known limitations or skipped features.
+- Mock-data/no-backend explanation.
+- AI tools used and what they helped with.
+- A short explanation of the project structure.
+
+Do not claim a feature is complete unless it works.
+
+## 10. Verification
+
+After implementation:
+1. Run the project locally.
+2. Fix all build errors, runtime errors, and missing imports.
+3. Test every navigation item and mandatory interaction.
+4. Test pagination, row expansion, calendar navigation, chat sending, card actions, modal navigation, and callback feedback.
+5. Check that no mandatory screen is empty.
+6. Check desktop and mobile layouts.
+7. Verify the README commands from a clean terminal session.
+8. Inspect the finished UI side-by-side with the supplied reference.
+9. Fix the most visually obvious mismatches.
+10. Provide a final checklist showing what works, what was tested, and what remains incomplete.
+
+Do not stop after generating a plan or a static mockup. Implement the actual working application.
+
+## 11. Work in stages
+
+Proceed in this order:
+
+Stage 1: Inspect both references, inspect the existing project, and create the implementation checklist.
+
+Stage 2: Set up the project, shared design system, sidebar, topbar, navigation, and responsive shell.
+
+Stage 3: Implement the Dashboard with reusable components and mock data.
+
+Stage 4: Implement Calls to make, Incoming, and Recent.
+
+Stage 5: Implement the Calendar.
+
+Stage 6: Implement Pulse home and channel chat.
+
+Stage 7: Implement the Leads modal and connect it to relevant screens.
+
+Stage 8: Add bonus features only after all mandatory features work.
+
+Stage 9: Test, fix bugs, compare with the reference, and write the README.
+
+At the end of each stage, run the application and fix errors before continuing. Maintain a checklist so that no required screen is forgotten.
+
+Start with Stage 1 now. Inspect the actual provided files; do not guess what they contain. Then report the project structure and implementation checklist before proceeding.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-11T09:05:22+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.8 Flash (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
